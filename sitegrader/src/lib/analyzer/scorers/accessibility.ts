@@ -26,7 +26,7 @@ export function scoreAccessibility(page: ParsedPage): CategoryScore {
   check(
     'a11y-missing-lang',
     'Missing lang attribute on <html>',
-    'Add a lang attribute to the <html> element (e.g. lang="en") to help screen readers.',
+    'Without a `lang` attribute, screen readers cannot choose the correct language pronunciation engine, making your content unintelligible to blind users who speak that language. Add it to your opening HTML tag: `<html lang="en">`. Use the appropriate BCP-47 language code for your content (e.g. "es" for Spanish, "fr" for French).',
     'critical',
     page.htmlLang !== null && page.htmlLang.length > 0,
   )
@@ -38,7 +38,7 @@ export function scoreAccessibility(page: ParsedPage): CategoryScore {
   check(
     'a11y-images-missing-alt',
     'Images missing alt text',
-    'Add descriptive alt text to at least 90% of images so screen readers can describe them.',
+    'Images without alt text are completely invisible to screen reader users and people with images disabled — they hear nothing or "image12345.jpg" read aloud. Add a concise description to every content image: `<img src="team.jpg" alt="The SiteGrader team at our 2024 offsite">`. For purely decorative images, use `alt=""` to tell screen readers to skip it.',
     'critical',
     altRatio >= 0.9,
   )
@@ -50,7 +50,7 @@ export function scoreAccessibility(page: ParsedPage): CategoryScore {
   check(
     'a11y-form-labels',
     'Form inputs missing labels',
-    'Associate labels with at least 90% of form inputs using <label for="id"> to aid screen reader users.',
+    'Form fields without labels are impossible to use with a screen reader — the user hears "edit text" with no context about what to type. Associate a label with every input using the `for` attribute matching the input\'s `id`: `<label for="email">Email address</label><input id="email" type="email">`. Never rely on placeholder text alone.',
     'critical',
     labelRatio >= 0.9,
   )
@@ -59,7 +59,7 @@ export function scoreAccessibility(page: ParsedPage): CategoryScore {
   check(
     'a11y-no-semantic-elements',
     'No semantic HTML elements',
-    'Use semantic elements like <header>, <main>, <nav>, <footer>, <article>, or <section> to improve navigation for assistive technologies.',
+    'Pages built entirely from `<div>` and `<span>` elements have no structure that assistive technologies can navigate — screen reader users cannot jump to the main content, navigation, or footer. Replace layout divs with semantic elements: `<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, and `<footer>`.',
     'warning',
     page.semanticElements.length > 0,
   )
@@ -71,7 +71,7 @@ export function scoreAccessibility(page: ParsedPage): CategoryScore {
   check(
     'a11y-bad-link-text',
     'Non-descriptive link text',
-    'Avoid vague link text like "click here", "here", "read more", or "link". Use descriptive text that explains the link destination.',
+    'Links that say "click here" or "read more" are useless to screen reader users who navigate by tabbing through links — they hear a list of "click here, click here, click here" with no idea where each goes. Replace vague link text with descriptive phrases: instead of "click here", write "Download the 2024 Annual Report".',
     'warning',
     !hasBadLinkText,
   )
@@ -81,7 +81,7 @@ export function scoreAccessibility(page: ParsedPage): CategoryScore {
   check(
     'a11y-no-main-landmark',
     'Missing <main> landmark',
-    'Add a <main> element to define the primary content area, helping screen reader users skip to the main content.',
+    'Without a `<main>` landmark, screen reader users must tab through the entire header and navigation on every page to reach the content — there\'s no way to skip to the good part. Wrap your primary page content in a `<main>` element, which gives assistive technologies a "skip to main content" target.',
     'warning',
     hasMain,
   )

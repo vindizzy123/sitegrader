@@ -24,7 +24,7 @@ export function scoreMobile(page: ParsedPage): CategoryScore {
   check(
     'mobile-no-viewport',
     'Missing viewport meta tag',
-    'Add <meta name="viewport" content="width=device-width, initial-scale=1"> for proper mobile rendering.',
+    'Without a viewport meta tag, mobile browsers render your page at desktop width (~980px) and then shrink it down, making text tiny and unreadable without pinching and zooming. Add this exact tag inside your <head>: `<meta name="viewport" content="width=device-width, initial-scale=1">`. This is the foundation of any mobile-responsive page.',
     'critical',
     page.hasViewport,
   )
@@ -37,7 +37,7 @@ export function scoreMobile(page: ParsedPage): CategoryScore {
   check(
     'mobile-bad-viewport',
     'Viewport does not include width=device-width',
-    'Set width=device-width in your viewport meta tag so the page scales correctly on mobile devices.',
+    'A viewport tag without `width=device-width` means the browser doesn\'t know to match the page width to the device screen, causing horizontal scrolling or incorrectly scaled layouts on phones. Update your viewport tag to: `<meta name="viewport" content="width=device-width, initial-scale=1">`.',
     'critical',
     goodViewport,
   )
@@ -49,7 +49,7 @@ export function scoreMobile(page: ParsedPage): CategoryScore {
   check(
     'mobile-no-srcset',
     'Images lack responsive srcset',
-    'Add srcset attributes to at least 30% of images to serve appropriate sizes on different screen densities.',
+    'Serving a single large desktop image to mobile users wastes their data and slows load times — a 2000px image downloaded on a 375px phone screen transfers 5× more data than needed. Add `srcset` to serve appropriately sized images: `<img src="hero.jpg" srcset="hero-400.jpg 400w, hero-800.jpg 800w" sizes="(max-width: 600px) 400px, 800px">`.',
     'info',
     srcsetRatio >= 0.3,
   )
@@ -59,7 +59,7 @@ export function scoreMobile(page: ParsedPage): CategoryScore {
   check(
     'mobile-large-page',
     'Page is too large for mobile',
-    'Keep your page under 2 MB to ensure fast loading on mobile networks.',
+    'A page over 2 MB can take 10+ seconds to load on a 4G mobile connection, and even longer on 3G — studies show 53% of users abandon a page that takes more than 3 seconds to load. Identify and eliminate large inline resources, compress images, and consider lazy-loading content that\'s not immediately visible.',
     'warning',
     page.htmlSize <= 2 * MB,
   )

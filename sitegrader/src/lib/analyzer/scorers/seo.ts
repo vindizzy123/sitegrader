@@ -24,7 +24,7 @@ export function scoreSeo(page: ParsedPage): CategoryScore {
   check(
     'seo-missing-title',
     'Missing title tag',
-    'Add a <title> tag to your page. It is displayed in search results and browser tabs.',
+    'Your page has no <title> tag, so search engines cannot display a proper title in results — this alone can dramatically reduce click-through rates. Add one inside your <head>: `<title>Your Page Title – Brand Name</title>`. Keep it under 60 characters for best results.',
     'critical',
     page.title !== null,
   )
@@ -32,7 +32,7 @@ export function scoreSeo(page: ParsedPage): CategoryScore {
   check(
     'seo-title-too-long',
     'Title too long',
-    'Keep your title under 60 characters to avoid truncation in search results.',
+    'Titles over 60 characters get cut off in Google search results with "…", making your listing look incomplete and reducing clicks. Trim your title to 60 characters or fewer, putting the most important keywords first.',
     'warning',
     page.title === null || page.title.length <= 60,
   )
@@ -40,7 +40,7 @@ export function scoreSeo(page: ParsedPage): CategoryScore {
   check(
     'seo-title-too-short',
     'Title too short',
-    'Your title should be at least 20 characters for adequate search result display.',
+    'A title under 20 characters doesn\'t give search engines enough context to understand your page, which hurts rankings. Expand it to at least 20 characters by including your primary keyword and brand name.',
     'warning',
     page.title === null || page.title.length >= 20,
   )
@@ -49,7 +49,7 @@ export function scoreSeo(page: ParsedPage): CategoryScore {
   check(
     'seo-missing-meta-description',
     'Missing meta description',
-    'Add a <meta name="description"> tag to improve click-through rates from search results.',
+    'Without a meta description, Google auto-generates a snippet that may not represent your page well, reducing click-through rates from search results. Add one in your <head>: `<meta name="description" content="Your compelling 150-character summary here.">`. Aim for 120–160 characters.',
     'warning',
     page.metaDescription !== null,
   )
@@ -57,7 +57,7 @@ export function scoreSeo(page: ParsedPage): CategoryScore {
   check(
     'seo-meta-description-length',
     'Meta description length not optimal',
-    'Keep your meta description between 120 and 160 characters for best display in search results.',
+    'Meta descriptions outside the 120–160 character sweet spot are either too short to be informative or get truncated in search results. Edit yours to fall within this range — treat it like ad copy that convinces searchers to click your link.',
     'info',
     page.metaDescription === null ||
       (page.metaDescription.length >= 120 && page.metaDescription.length <= 160),
@@ -68,7 +68,7 @@ export function scoreSeo(page: ParsedPage): CategoryScore {
   check(
     'seo-missing-h1',
     'Missing H1 heading',
-    'Add an <h1> tag to clearly signal the main topic of the page to search engines.',
+    'The H1 tag is the single most important on-page SEO signal — it tells search engines what your page is about. Add exactly one `<h1>` containing your primary keyword near the top of your page content.',
     'critical',
     h1Count >= 1,
   )
@@ -76,7 +76,7 @@ export function scoreSeo(page: ParsedPage): CategoryScore {
   check(
     'seo-multiple-h1',
     'Multiple H1 headings',
-    'Use only one <h1> per page. Multiple H1s dilute the page topic signal.',
+    'Using more than one H1 dilutes the topic signal you send to search engines, making it harder to rank for any single keyword. Keep exactly one <h1> per page and use <h2>–<h6> for subheadings.',
     'warning',
     h1Count <= 1,
   )
@@ -92,7 +92,7 @@ export function scoreSeo(page: ParsedPage): CategoryScore {
   check(
     'seo-heading-hierarchy',
     'Heading hierarchy skips levels',
-    'Do not skip heading levels (e.g. h1 → h3). Use a logical nesting order.',
+    'Skipping heading levels (e.g. jumping from H1 directly to H3) breaks the document outline, which both search engines and screen readers rely on to understand content structure. Fix your headings so they nest in order: H1 → H2 → H3, never skipping a level.',
     'warning',
     hierarchyOk,
   )
@@ -104,7 +104,7 @@ export function scoreSeo(page: ParsedPage): CategoryScore {
   check(
     'seo-images-missing-alt',
     'Images missing alt text',
-    'Add descriptive alt text to at least 90% of images to improve SEO and accessibility.',
+    'Images without alt text are invisible to search engines and screen readers — you\'re losing valuable keyword opportunities and image search traffic. Add descriptive alt text to every content image: `<img src="photo.jpg" alt="Descriptive phrase about the image">`. Decorative images can use `alt=""`.',
     'warning',
     altRatio >= 0.9,
   )
@@ -113,7 +113,7 @@ export function scoreSeo(page: ParsedPage): CategoryScore {
   check(
     'seo-missing-canonical',
     'Missing canonical URL',
-    'Add a <link rel="canonical"> to prevent duplicate content issues.',
+    'Without a canonical tag, search engines may index multiple versions of your page (e.g. with/without www, http vs https) as separate pages, splitting your ranking power. Add `<link rel="canonical" href="https://yourdomain.com/page/">` in your <head> to consolidate all signals to one URL.',
     'info',
     page.canonicalUrl !== null,
   )
@@ -124,7 +124,7 @@ export function scoreSeo(page: ParsedPage): CategoryScore {
   check(
     'seo-missing-og-tags',
     'Missing Open Graph tags',
-    'Add og:title and og:description meta tags to control how your page appears when shared on social media.',
+    'Without Open Graph tags, when someone shares your page on Facebook, LinkedIn, or Slack, it will show an ugly blank preview instead of a rich card — significantly reducing click-throughs from social media. Add these to your <head>: `<meta property="og:title" content="Your Title">` and `<meta property="og:description" content="Your description">`.',
     'info',
     hasOgTitle && hasOgDesc,
   )
@@ -134,7 +134,7 @@ export function scoreSeo(page: ParsedPage): CategoryScore {
   check(
     'seo-missing-twitter-tags',
     'Missing Twitter Card tags',
-    'Add a twitter:card meta tag to control how your page appears when shared on Twitter/X.',
+    'Without a Twitter Card tag, links shared on X (Twitter) show as plain text instead of an eye-catching card with an image and description. Add `<meta name="twitter:card" content="summary_large_image">` to your <head>, then include twitter:title and twitter:description as well.',
     'info',
     hasTwitterCard,
   )
@@ -144,7 +144,7 @@ export function scoreSeo(page: ParsedPage): CategoryScore {
   check(
     'seo-no-internal-links',
     'No internal links found',
-    'Add internal links to help search engines discover and index more pages on your site.',
+    'Pages with no internal links are dead ends for search engine crawlers — other pages on your site won\'t get discovered or indexed. Add links to related pages or sections within your site so crawlers (and users) can navigate your full content.',
     'warning',
     internalLinks.length > 0,
   )

@@ -26,7 +26,7 @@ export function scoreSecurity(page: ParsedPage): CategoryScore {
   check(
     'sec-no-https',
     'Page not served over HTTPS',
-    'Serve your site over HTTPS to protect users and improve SEO rankings.',
+    'HTTP pages transmit all data — including passwords and form submissions — in plain text, making them trivially easy for attackers to intercept. Google also penalises non-HTTPS sites in rankings. Install a free TLS certificate via Let\'s Encrypt and configure your server to redirect all HTTP traffic to HTTPS.',
     'critical',
     isHttps,
   )
@@ -38,7 +38,7 @@ export function scoreSecurity(page: ParsedPage): CategoryScore {
   check(
     'sec-no-hsts',
     'Missing Strict-Transport-Security header',
-    'Add the Strict-Transport-Security (HSTS) header to enforce HTTPS connections.',
+    'Without HSTS, attackers can downgrade HTTPS connections to HTTP through a man-in-the-middle attack, bypassing your TLS certificate entirely. Add this header on your server: `Strict-Transport-Security: max-age=31536000; includeSubDomains`. This tells browsers to always use HTTPS for your domain for the next year.',
     'warning',
     hasHsts,
   )
@@ -50,7 +50,7 @@ export function scoreSecurity(page: ParsedPage): CategoryScore {
   check(
     'sec-no-csp',
     'Missing Content-Security-Policy header',
-    'Add a Content-Security-Policy header to prevent XSS and data injection attacks.',
+    'Without a CSP, attackers who inject malicious scripts into your page (XSS) can steal user data, hijack sessions, or redirect visitors to phishing sites. Start with a restrictive policy: `Content-Security-Policy: default-src \'self\'; script-src \'self\'` and gradually whitelist trusted external sources.',
     'warning',
     hasCsp,
   )
@@ -61,7 +61,7 @@ export function scoreSecurity(page: ParsedPage): CategoryScore {
   check(
     'sec-no-x-frame-options',
     'Missing X-Frame-Options header',
-    'Add an X-Frame-Options header to protect against clickjacking attacks.',
+    'Without this header, attackers can embed your page inside an invisible iframe on a malicious site, tricking users into clicking buttons they can\'t see (clickjacking). Add `X-Frame-Options: DENY` to block all framing, or `SAMEORIGIN` to allow only your own domain to frame the page.',
     'warning',
     hasXfo,
   )
@@ -73,7 +73,7 @@ export function scoreSecurity(page: ParsedPage): CategoryScore {
   check(
     'sec-no-x-content-type-options',
     'Missing X-Content-Type-Options header',
-    'Add X-Content-Type-Options: nosniff to prevent MIME type sniffing attacks.',
+    'Without this header, browsers may "sniff" a file\'s content type and execute a text file as JavaScript, creating a vector for script injection attacks. Add `X-Content-Type-Options: nosniff` — it\'s a one-line server config change that prevents this class of attack entirely.',
     'warning',
     hasXcto,
   )
@@ -84,7 +84,7 @@ export function scoreSecurity(page: ParsedPage): CategoryScore {
   check(
     'sec-server-version-exposed',
     'Server version exposed in headers',
-    'Remove version information from the Server header to reduce information leakage.',
+    'Exposing your server software version (e.g. "nginx/1.18.0") tells attackers exactly which known vulnerabilities to target, reducing the effort required for an attack. Configure your server to suppress version details: on Nginx set `server_tokens off;`, on Apache set `ServerTokens Prod`.',
     'info',
     !serverVersionExposed,
   )
@@ -98,7 +98,7 @@ export function scoreSecurity(page: ParsedPage): CategoryScore {
   check(
     'sec-mixed-content',
     'Mixed content detected',
-    'Replace all http:// resource URLs with https:// to avoid mixed content warnings.',
+    'Loading HTTP resources on an HTTPS page breaks the security guarantee of encryption — browsers block or warn about mixed content, which can cause images, scripts, or stylesheets to silently fail. Search through your HTML for any `src="http://` or `href="http://` attributes and change them all to `https://`.',
     'critical',
     !hasMixedContent,
   )

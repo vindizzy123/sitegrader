@@ -26,7 +26,7 @@ export function scorePerformance(page: ParsedPage): CategoryScore {
   check(
     'perf-page-too-large',
     'Page size exceeds 3 MB',
-    'Reduce your HTML page size below 3 MB to improve load times for all users.',
+    'A 3 MB+ HTML page takes 6–15 seconds to load on a typical mobile connection, causing most visitors to leave before it finishes. Audit your page for inline SVGs, base64-encoded images, or large JSON blobs embedded in the HTML, and move them to external files or a CDN.',
     'critical',
     page.htmlSize <= 3 * MB,
   )
@@ -34,7 +34,7 @@ export function scorePerformance(page: ParsedPage): CategoryScore {
   check(
     'perf-page-size-ideal',
     'Page size not ideal',
-    'Keep your HTML page size under 500 KB for fast loading, especially on mobile.',
+    'Pages over 500 KB load noticeably slower on mobile devices and negatively impact Google\'s Core Web Vitals scores, which directly affect your search rankings. Remove unused HTML, minify your markup, and defer or lazy-load non-critical resources to bring the page under 500 KB.',
     'warning',
     page.htmlSize < 0.5 * MB,
   )
@@ -43,7 +43,7 @@ export function scorePerformance(page: ParsedPage): CategoryScore {
   check(
     'perf-too-many-images',
     'Too many images',
-    'Having more than 20 images per page can hurt performance. Use lazy loading or pagination.',
+    'More than 20 images triggers too many simultaneous HTTP requests, blocking the browser and stalling the page load — each extra image adds latency. Use lazy loading (`loading="lazy"` attribute) for below-the-fold images, and consider pagination or carousels for galleries.',
     'warning',
     page.images.length <= 20,
   )
@@ -57,7 +57,7 @@ export function scorePerformance(page: ParsedPage): CategoryScore {
   check(
     'perf-legacy-image-formats',
     'Legacy image formats detected',
-    'Replace BMP or TIFF images with modern formats like WebP, AVIF, or JPEG/PNG.',
+    'BMP and TIFF files are uncompressed and can be 5–10× larger than equivalent WebP or AVIF images, severely increasing load times. Convert all images to WebP (or AVIF for maximum compression) — most modern tools and CDNs can do this automatically.',
     'warning',
     !hasLegacyImages,
   )
@@ -72,7 +72,7 @@ export function scorePerformance(page: ParsedPage): CategoryScore {
   check(
     'perf-no-compression',
     'No compression detected',
-    'Enable gzip or Brotli compression on your server to reduce transfer sizes.',
+    'Serving uncompressed HTML, CSS, and JS wastes bandwidth — Brotli compression alone typically reduces transfer sizes by 20–30%, directly improving load times for every visitor. Enable Brotli or gzip on your web server; on Nginx add `gzip on;`, on Apache enable `mod_deflate`, and most CDNs offer this as a one-click setting.',
     'warning',
     hasCompression,
   )
@@ -84,7 +84,7 @@ export function scorePerformance(page: ParsedPage): CategoryScore {
   check(
     'perf-no-cache-headers',
     'No cache headers found',
-    'Add Cache-Control or Expires headers to allow browsers to cache your page.',
+    'Without cache headers, browsers re-download your page on every visit instead of serving it from cache, making repeat visits just as slow as the first. Set a Cache-Control header on your server: `Cache-Control: public, max-age=3600` for pages, and `max-age=31536000, immutable` for versioned assets.',
     'warning',
     hasCacheHeaders,
   )
@@ -94,7 +94,7 @@ export function scorePerformance(page: ParsedPage): CategoryScore {
   check(
     'perf-many-scripts',
     'Too many script tags',
-    'Reduce the number of <script> tags below 10. Bundle your JavaScript to improve load performance.',
+    'Each individual `<script>` tag is a potential render-blocking request — 10+ scripts can add seconds to your page load time as the browser waits for each one. Bundle your JavaScript into one or two files using a build tool like Vite or Webpack, and add `defer` or `async` attributes to non-critical scripts.',
     'warning',
     scriptTagCount <= 10,
   )
