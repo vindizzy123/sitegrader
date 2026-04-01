@@ -1,65 +1,151 @@
-import Image from "next/image";
+import UrlInput from '@/components/url-input'
+
+const STEPS = [
+  {
+    num: 1,
+    title: 'Enter a URL',
+    description: 'Paste any website address into the input above.',
+  },
+  {
+    num: 2,
+    title: 'We analyze it',
+    description: 'Our engine checks SEO, performance, security, accessibility, and mobile.',
+  },
+  {
+    num: 3,
+    title: 'Get your score',
+    description: 'Receive an A–F grade with a full breakdown and actionable recommendations.',
+  },
+]
+
+const CATEGORIES = [
+  {
+    icon: '🔍',
+    title: 'SEO',
+    description:
+      'Title tags, meta descriptions, headings, canonical URLs, and Open Graph tags.',
+  },
+  {
+    icon: '⚡',
+    title: 'Performance',
+    description: 'HTML size, render-blocking hints, image optimization, and caching headers.',
+  },
+  {
+    icon: '🔒',
+    title: 'Security',
+    description: 'HTTPS enforcement, security headers like CSP and HSTS, and safe redirect chains.',
+  },
+  {
+    icon: '♿',
+    title: 'Accessibility',
+    description: 'Alt text on images, labelled form inputs, language attributes, and ARIA basics.',
+  },
+  {
+    icon: '📱',
+    title: 'Mobile',
+    description: 'Viewport configuration, touch-friendly targets, and responsive meta tags.',
+  },
+]
+
+const FAQS = [
+  {
+    q: 'Is SiteGrader free?',
+    a: 'Yes, completely free — no sign-up, no credit card, no limits.',
+  },
+  {
+    q: 'How accurate are the results?',
+    a: 'We run over 30 automated checks based on industry best practices. Results are a solid starting point, though a human audit may catch nuances automated tools cannot.',
+  },
+  {
+    q: 'Do you store my website data?',
+    a: 'Reports are stored so you can share them via URL. We do not sell or share your data with third parties.',
+  },
+  {
+    q: 'Can I share my report?',
+    a: 'Yes! Every report gets a unique URL you can share with your team or clients.',
+  },
+]
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      {/* Hero */}
+      <section className="flex flex-col items-center justify-center px-4 py-20 text-center sm:px-6 sm:py-28">
+        <h1 className="max-w-2xl text-4xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white sm:text-5xl lg:text-6xl">
+          Grade your website in{' '}
+          <span className="text-blue-600">30 seconds</span>
+        </h1>
+        <p className="mt-5 max-w-xl text-lg text-gray-600 dark:text-gray-400">
+          Instantly analyze SEO, performance, security, accessibility, and
+          mobile-friendliness. Get an A–F score with clear, actionable fixes.
+        </p>
+        <div className="mt-8 w-full max-w-2xl">
+          <UrlInput size="large" />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <p className="mt-3 text-xs text-gray-400 dark:text-gray-500">
+          No sign-up required. Free forever.
+        </p>
+      </section>
+
+      {/* How it works */}
+      <section className="bg-white py-16 dark:bg-gray-800">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <h2 className="mb-10 text-center text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
+            How it works
+          </h2>
+          <div className="grid gap-8 sm:grid-cols-3">
+            {STEPS.map((step) => (
+              <div key={step.num} className="flex flex-col items-center text-center">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-600 text-lg font-bold text-white">
+                  {step.num}
+                </div>
+                <h3 className="mb-2 font-semibold text-gray-900 dark:text-white">{step.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{step.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </main>
-    </div>
-  );
+      </section>
+
+      {/* What we check */}
+      <section className="py-16">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <h2 className="mb-10 text-center text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
+            What we check
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {CATEGORIES.map((cat) => (
+              <div
+                key={cat.title}
+                className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+              >
+                <span className="text-2xl" role="img" aria-label={cat.title}>
+                  {cat.icon}
+                </span>
+                <h3 className="mt-2 font-semibold text-gray-900 dark:text-white">{cat.title}</h3>
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{cat.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-white py-16 dark:bg-gray-800">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+          <h2 className="mb-10 text-center text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
+            Frequently asked questions
+          </h2>
+          <div className="space-y-6">
+            {FAQS.map((faq) => (
+              <div key={faq.q}>
+                <h3 className="font-semibold text-gray-900 dark:text-white">{faq.q}</h3>
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  )
 }

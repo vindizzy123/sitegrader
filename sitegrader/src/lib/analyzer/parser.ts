@@ -58,7 +58,7 @@ export function parsePage(
   // Headings in document order
   const headings: { level: number; text: string }[] = []
   $('h1, h2, h3, h4, h5, h6').each((_, el) => {
-    const tagName = (el as cheerio.Element & { name?: string }).name ?? (el as any).tagName ?? ''
+    const tagName = (el as any).name ?? (el as any).tagName ?? ''
     const level = parseInt(tagName.replace('h', ''), 10)
     if (!isNaN(level)) {
       headings.push({ level, text: $(el).text().trim() })
