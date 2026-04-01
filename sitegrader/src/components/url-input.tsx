@@ -49,7 +49,7 @@ export default function UrlInput({ size = 'large' }: UrlInputProps) {
         className={`flex w-full gap-2 ${isLarge ? 'flex-col sm:flex-row' : 'flex-row'}`}
       >
         <input
-          type="url"
+          type="text"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           placeholder="https://example.com"
