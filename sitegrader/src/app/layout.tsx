@@ -10,10 +10,52 @@ const inter = Inter({
   display: 'swap',
 })
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sitegrader-kappa.vercel.app'
+
 export const metadata: Metadata = {
-  title: 'SiteGrader - Free Website Grading Tool',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'SiteGrader - Free Website Grading Tool',
+    template: '%s | SiteGrader',
+  },
   description:
     'Grade your website instantly. SiteGrader analyzes SEO, performance, security, accessibility, and mobile-friendliness — giving you an actionable score in seconds.',
+  keywords: [
+    'website grader',
+    'website score',
+    'SEO checker',
+    'website analysis',
+    'website audit',
+    'free website tool',
+    'site performance',
+    'website report',
+  ],
+  alternates: {
+    canonical: siteUrl,
+  },
+  openGraph: {
+    type: 'website',
+    url: siteUrl,
+    siteName: 'SiteGrader',
+    title: 'SiteGrader - Free Website Grading Tool',
+    description:
+      'Grade your website instantly. SiteGrader analyzes SEO, performance, security, accessibility, and mobile-friendliness — giving you an actionable score in seconds.',
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'SiteGrader - Free Website Grading Tool',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SiteGrader - Free Website Grading Tool',
+    description:
+      'Grade your website instantly. SiteGrader analyzes SEO, performance, security, accessibility, and mobile-friendliness — giving you an actionable score in seconds.',
+    images: ['/opengraph-image'],
+  },
 }
 
 export default function RootLayout({
