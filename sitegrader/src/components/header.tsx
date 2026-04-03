@@ -7,12 +7,18 @@ export default function Header() {
         <Link href="/" className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
           Site<span className="text-blue-600">Grader</span>
         </Link>
-        <nav>
+        <nav className="flex items-center gap-6">
           <Link
             href="/"
             className="text-sm font-medium text-gray-600 transition hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
           >
             Home
+          </Link>
+          <Link
+            href="/blog"
+            className="text-sm font-medium text-gray-600 transition hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+          >
+            Blog
           </Link>
         </nav>
       </div>
