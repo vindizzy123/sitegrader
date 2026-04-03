@@ -14,6 +14,9 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sitegrader-kappa.ve
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  verification: {
+    google: 'e_YAkG0nucdE-WbHAp40_d6TVvwQXWmhRSdZaagY_Ms',
+  },
   title: {
     default: 'SiteGrader - Free Website Grading Tool',
     template: '%s | SiteGrader',
